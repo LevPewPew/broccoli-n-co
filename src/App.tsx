@@ -4,8 +4,9 @@ import {
   Flex as FlexBox,
   Center,
   Container,
-  theme,
+  Text,
   useDisclosure,
+  theme,
 } from "@chakra-ui/react";
 import {
   CallToAction,
@@ -21,6 +22,17 @@ export const App = () => {
     onOpen: openRequestInviteForm,
     onClose: closeRequestInviteForm,
   } = useDisclosure();
+  const {
+    isOpen: isInviteSuccessOpen,
+    onOpen: openInviteSuccess,
+    onClose: closeInviteSuccess,
+  } = useDisclosure();
+
+  // NEXT change RequestInvite to Invite over entire app
+  const handleRequestInviteFormSubmit = () => {
+    closeRequestInviteForm();
+    openInviteSuccess();
+  };
 
   return (
     <ChakraProvider theme={theme}>
@@ -34,10 +46,22 @@ export const App = () => {
         <Footer />
       </FlexBox>
       <CompleteModal
+        title="Request an Invite"
         isOpen={isRequestInviteFormOpen}
         onClose={closeRequestInviteForm}
       >
-        <RequestInviteForm onSubmit={closeRequestInviteForm} />
+        <RequestInviteForm onSubmit={handleRequestInviteFormSubmit} />
+      </CompleteModal>
+      <CompleteModal
+        title="All done!"
+        isOpen={isInviteSuccessOpen}
+        onClose={closeInviteSuccess}
+        confirm
+      >
+        <Text textAlign="center">
+          You will be one of the first to experience Broccoli &#38; Co. when we
+          launch.
+        </Text>
       </CompleteModal>
     </ChakraProvider>
   );

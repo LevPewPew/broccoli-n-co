@@ -13,7 +13,7 @@ export const CallToAction = ({ onButtonClick }: Props) => (
       to enjoy every day.
     </Heading>
     <Text fontSize="xl">Be the first to know when we launch.</Text>
-    <Button onClick={onButtonClick} size="lg">
+    <Button onClick={onButtonClick} size="lg" colorScheme="green">
       Request an invite
     </Button>
   </VStack>

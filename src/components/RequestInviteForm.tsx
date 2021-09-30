@@ -25,11 +25,11 @@ interface FormData {
 export const RequestInviteForm = ({ onSubmit }: Props) => {
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const handleSendButtonClick = () => {
-    // NEXT extract into nice methods into here
-    console.log("the form data to start");
-    onSubmit();
-  };
+  // const handleSendButtonClick = () => {
+  //   // NEXT extract into nice methods into here
+  //   console.log("the form data to start");
+  //   onSubmit();
+  // };
 
   const {
     handleSubmit,
@@ -62,7 +62,8 @@ export const RequestInviteForm = ({ onSubmit }: Props) => {
       });
 
       if (response.ok) {
-        console.log("yay"); // NEXT
+        console.log("yay"); // LEFTOFF create the success modal and direct there upon OK200
+        onSubmit();
       } else {
         const data = await response.json();
         setSubmitError(data.errorMessage);
