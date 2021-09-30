@@ -34,6 +34,7 @@ export const App = () => {
     openInviteSuccess();
   };
 
+  // NEXT ensure everything is responsive
   return (
     <ChakraProvider theme={theme}>
       <FlexBox color="white" height="100vh" flexDirection="column">

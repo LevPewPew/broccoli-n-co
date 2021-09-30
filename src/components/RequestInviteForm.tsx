@@ -24,29 +24,21 @@ interface FormData {
 
 export const RequestInviteForm = ({ onSubmit }: Props) => {
   const [submitError, setSubmitError] = useState<string | null>(null);
-
-  // const handleSendButtonClick = () => {
-  //   // NEXT extract into nice methods into here
-  //   console.log("the form data to start");
-  //   onSubmit();
-  // };
-
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
     watch,
   } = useForm();
-
   const emailValue = useRef({});
   emailValue.current = watch("email", "");
+  const emailFormatRegex = /\S+@\S+\.\S+/;
 
   const postFormData = async (values: FormData) => {
     setSubmitError(null);
 
     const authEndpoint =
       "https://us-central1-blinkapp-684c1.cloudfunctions.net/fakeAuth";
-
     const authBody = {
       name: values.fullName,
       email: values.email,
@@ -62,14 +54,13 @@ export const RequestInviteForm = ({ onSubmit }: Props) => {
       });
 
       if (response.ok) {
-        console.log("yay"); // LEFTOFF create the success modal and direct there upon OK200
         onSubmit();
       } else {
         const data = await response.json();
         setSubmitError(data.errorMessage);
       }
-    } catch (dasErr) {
-      console.log({ dasErr });
+    } catch (error) {
+      setSubmitError(error);
     }
   };
 
@@ -97,7 +88,7 @@ export const RequestInviteForm = ({ onSubmit }: Props) => {
               {...register("email", {
                 required: "Required",
                 pattern: {
-                  value: /\S+@\S+\.\S+/,
+                  value: emailFormatRegex,
                   message: "Invalid email format",
                 },
               })}
@@ -113,7 +104,7 @@ export const RequestInviteForm = ({ onSubmit }: Props) => {
               {...register("confirmEmail", {
                 required: "Required",
                 pattern: {
-                  value: /\S+@\S+\.\S+/,
+                  value: emailFormatRegex,
                   message: "Invalid email format",
                 },
                 validate: (value) =>
@@ -135,7 +126,7 @@ export const RequestInviteForm = ({ onSubmit }: Props) => {
             Submit
           </Button>
           {submitError && (
-            <Alert status="error">
+            <Alert status="error" borderRadius="0.4rem">
               <AlertIcon />
               {submitError}
             </Alert>
