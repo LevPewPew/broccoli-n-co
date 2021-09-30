@@ -118,7 +118,7 @@ export const InviteForm = ({ onSubmit }: Props) => {
         </VStack>
         <VStack spacing={4} mt={8}>
           <Button
-            colorScheme="teal"
+            colorScheme="green"
             isLoading={isSubmitting}
             type="submit"
             width="100%"

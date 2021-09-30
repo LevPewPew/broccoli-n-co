@@ -29,13 +29,13 @@ export const CompleteModal = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent pb={4}>
+      <ModalContent pb={4} bg="green.500">
         <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{children}</ModalBody>
         {confirm && (
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose} width="100%">
+            <Button colorScheme="green" mr={3} onClick={onClose} width="100%">
               OK
             </Button>
           </ModalFooter>
