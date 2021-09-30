@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import {
   Box,
   Input,
@@ -9,7 +9,6 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
 
 interface Props {
   onSubmit: (values: FormValues) => void;
@@ -21,7 +20,6 @@ export interface FormValues {
   confirmEmail: string;
 }
 
-// NEXT make first field the tab focus, not the X
 export const InviteForm = ({ onSubmit }: Props) => {
   const {
     handleSubmit,
