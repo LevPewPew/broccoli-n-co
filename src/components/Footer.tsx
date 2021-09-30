@@ -6,8 +6,8 @@ export const Footer = () => (
     flexDirection="column"
     bg="green.700"
     alignItems="center"
-    px="32"
-    py="4"
+    px={32}
+    py={4}
   >
     <Text>Made with ❤️ in Melbourne</Text>
     <Text>&#169; 2016 Brocolli n Co. All rights reserved.</Text>

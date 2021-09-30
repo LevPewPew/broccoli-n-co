@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const CallToAction = ({ onButtonClick }: Props) => (
-  <VStack spacing="4">
+  <VStack spacing={4}>
     <Heading size="3xl" textAlign="center">
       A better way
       <br />

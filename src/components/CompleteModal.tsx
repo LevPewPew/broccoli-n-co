@@ -18,7 +18,7 @@ export const CompleteModal = ({ children, isOpen, onClose }: Props) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent pb="4">
+      <ModalContent pb={4}>
         <ModalHeader>Request an Invite</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{children}</ModalBody>
