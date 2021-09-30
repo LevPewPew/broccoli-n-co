@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   Box,
   Input,
@@ -7,6 +7,8 @@ import {
   FormLabel,
   FormControl,
   Button,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
@@ -21,8 +23,10 @@ interface FormData {
 }
 
 export const RequestInviteForm = ({ onSubmit }: Props) => {
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
   const handleSendButtonClick = () => {
-    // NEXT actually submit the form data
+    // NEXT extract into nice methods into here
     console.log("the form data to start");
     onSubmit();
   };
@@ -38,6 +42,8 @@ export const RequestInviteForm = ({ onSubmit }: Props) => {
   emailValue.current = watch("email", "");
 
   const postFormData = async (values: FormData) => {
+    setSubmitError(null);
+
     const authEndpoint =
       "https://us-central1-blinkapp-684c1.cloudfunctions.net/fakeAuth";
 
@@ -54,8 +60,13 @@ export const RequestInviteForm = ({ onSubmit }: Props) => {
           "Content-Type": "application/json",
         },
       });
-      const data = response.ok;
-      console.log({ data });
+
+      if (response.ok) {
+        console.log("yay"); // NEXT
+      } else {
+        const data = await response.json();
+        setSubmitError(data.errorMessage);
+      }
     } catch (dasErr) {
       console.log({ dasErr });
     }
@@ -113,15 +124,22 @@ export const RequestInviteForm = ({ onSubmit }: Props) => {
             </FormErrorMessage>
           </FormControl>
         </VStack>
-        <Button
-          mt={8}
-          colorScheme="teal"
-          isLoading={isSubmitting}
-          type="submit"
-          width="100%"
-        >
-          Submit
-        </Button>
+        <VStack spacing={4} mt={8}>
+          <Button
+            colorScheme="teal"
+            isLoading={isSubmitting}
+            type="submit"
+            width="100%"
+          >
+            Submit
+          </Button>
+          {submitError && (
+            <Alert status="error">
+              <AlertIcon />
+              {submitError}
+            </Alert>
+          )}
+        </VStack>
       </form>
     </Box>
   );
