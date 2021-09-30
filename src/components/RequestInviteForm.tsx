@@ -68,8 +68,6 @@ export const RequestInviteForm = ({ onSubmit }: Props) => {
     // https://us-central1-blinkapp-684c1.cloudfunctions.net/fakeAuth
   };
 
-  // NEXT add 3 chars long minimum name format
-  // NEXT add email format validation
   return (
     <Box>
       <form onSubmit={handleSubmit(postFormData)}>
@@ -80,6 +78,7 @@ export const RequestInviteForm = ({ onSubmit }: Props) => {
               id="full-name"
               {...register("fullName", {
                 required: "Required",
+                minLength: { value: 3, message: "Minimum of 3 characters" },
               })}
             />
             <FormErrorMessage>
@@ -92,6 +91,10 @@ export const RequestInviteForm = ({ onSubmit }: Props) => {
               id="email"
               {...register("email", {
                 required: "Required",
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: "Invalid email format",
+                },
               })}
             />
             <FormErrorMessage>
@@ -104,6 +107,10 @@ export const RequestInviteForm = ({ onSubmit }: Props) => {
               id="confirm-email"
               {...register("confirmEmail", {
                 required: "Required",
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: "Invalid email format",
+                },
                 validate: (value) =>
                   value === emailValue.current || "Emails do not match",
               })}
