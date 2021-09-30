@@ -18,6 +18,7 @@ import {
   InviteForm,
 } from "components";
 import { FormValues } from "components/InviteForm";
+import { postFormData } from "api/requests";
 
 export const App = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -32,37 +33,9 @@ export const App = () => {
     onClose: closeInviteSuccess,
   } = useDisclosure();
 
-  // NEXT maybe extract this into api utility or something
-  const postFormData = async (values: FormValues) => {
-    // NEXT test if values are correct to the interface
-    setSubmitError(null);
-
-    const authEndpoint =
-      "https://us-central1-blinkapp-684c1.cloudfunctions.net/fakeAuth";
-    const authBody = {
-      name: values.fullName,
-      email: values.email,
-    };
-
-    try {
-      const response = await fetch(authEndpoint, {
-        method: "POST",
-        body: JSON.stringify(authBody),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        closeInviteForm();
-        openInviteSuccess();
-      } else {
-        const data = await response.json();
-        setSubmitError(data.errorMessage);
-      }
-    } catch (error) {
-      setSubmitError(error);
-    }
+  const handleOkResponse = () => {
+    closeInviteForm();
+    openInviteSuccess();
   };
 
   return (
@@ -81,7 +54,11 @@ export const App = () => {
         isOpen={isInviteFormOpen}
         onClose={closeInviteForm}
       >
-        <InviteForm onSubmit={postFormData} />
+        <InviteForm
+          onSubmit={(values: FormValues) =>
+            postFormData(values, handleOkResponse, setSubmitError)
+          }
+        />
         {submitError && (
           <Alert status="error" borderRadius="0.4rem">
             <AlertIcon />
