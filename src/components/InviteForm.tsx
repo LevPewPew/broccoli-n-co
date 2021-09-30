@@ -9,6 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 interface Props {
   onSubmit: (values: FormValues) => void;
@@ -20,6 +21,7 @@ export interface FormValues {
   confirmEmail: string;
 }
 
+// NEXT make first field the tab focus, not the X
 export const InviteForm = ({ onSubmit }: Props) => {
   const {
     handleSubmit,
@@ -32,7 +34,7 @@ export const InviteForm = ({ onSubmit }: Props) => {
   const emailFormatRegex = /\S+@\S+\.\S+/;
 
   const submitForm = (values: FormValues) => {
-    onSubmit(values);
+    return onSubmit(values);
   };
 
   return (
@@ -87,16 +89,15 @@ export const InviteForm = ({ onSubmit }: Props) => {
             </FormErrorMessage>
           </FormControl>
         </VStack>
-        <VStack spacing={4} mt={8}>
-          <Button
-            colorScheme="green"
-            isLoading={isSubmitting}
-            type="submit"
-            width="100%"
-          >
-            Submit
-          </Button>
-        </VStack>
+        <Button
+          mt={8}
+          colorScheme="green"
+          isLoading={isSubmitting}
+          type="submit"
+          width="100%"
+        >
+          Submit
+        </Button>
       </form>
     </Box>
   );

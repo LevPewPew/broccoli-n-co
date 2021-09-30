@@ -60,7 +60,7 @@ export const App = () => {
           }
         />
         {submitError && (
-          <Alert status="error" borderRadius="0.4rem">
+          <Alert status="error" borderRadius="0.4rem" mt={4}>
             <AlertIcon />
             {submitError}
           </Alert>
