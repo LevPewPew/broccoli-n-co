@@ -13,14 +13,14 @@ import {
   CompleteModal,
   Footer,
   Header,
-  RequestInviteForm,
+  InviteForm,
 } from "components";
 
 export const App = () => {
   const {
-    isOpen: isRequestInviteFormOpen,
-    onOpen: openRequestInviteForm,
-    onClose: closeRequestInviteForm,
+    isOpen: isInviteFormOpen,
+    onOpen: openInviteForm,
+    onClose: closeInviteForm,
   } = useDisclosure();
   const {
     isOpen: isInviteSuccessOpen,
@@ -28,9 +28,8 @@ export const App = () => {
     onClose: closeInviteSuccess,
   } = useDisclosure();
 
-  // NEXT change RequestInvite to Invite over entire app
-  const handleRequestInviteFormSubmit = () => {
-    closeRequestInviteForm();
+  const handleInviteFormSubmit = () => {
+    closeInviteForm();
     openInviteSuccess();
   };
 
@@ -41,17 +40,17 @@ export const App = () => {
         <Header />
         <Center bg="green.500" flex="1">
           <Container maxW="xl" centerContent>
-            <CallToAction onButtonClick={openRequestInviteForm} />
+            <CallToAction onButtonClick={openInviteForm} />
           </Container>
         </Center>
         <Footer />
       </FlexBox>
       <CompleteModal
         title="Request an Invite"
-        isOpen={isRequestInviteFormOpen}
-        onClose={closeRequestInviteForm}
+        isOpen={isInviteFormOpen}
+        onClose={closeInviteForm}
       >
-        <RequestInviteForm onSubmit={handleRequestInviteFormSubmit} />
+        <InviteForm onSubmit={handleInviteFormSubmit} />
       </CompleteModal>
       <CompleteModal
         title="All done!"

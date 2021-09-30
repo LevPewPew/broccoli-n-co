@@ -22,7 +22,7 @@ interface FormData {
   confirmEmail: string;
 }
 
-export const RequestInviteForm = ({ onSubmit }: Props) => {
+export const InviteForm = ({ onSubmit }: Props) => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const {
     handleSubmit,
