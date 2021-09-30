@@ -7,23 +7,20 @@ import {
   FormLabel,
   FormControl,
   Button,
-  Alert,
-  AlertIcon,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
 interface Props {
-  onSubmit: () => void;
+  onSubmit: (values: FormValues) => void;
 }
 
-interface FormData {
+export interface FormValues {
   fullName: string;
   email: string;
   confirmEmail: string;
 }
 
 export const InviteForm = ({ onSubmit }: Props) => {
-  const [submitError, setSubmitError] = useState<string | null>(null);
   const {
     handleSubmit,
     register,
@@ -34,39 +31,13 @@ export const InviteForm = ({ onSubmit }: Props) => {
   emailValue.current = watch("email", "");
   const emailFormatRegex = /\S+@\S+\.\S+/;
 
-  const postFormData = async (values: FormData) => {
-    setSubmitError(null);
-
-    const authEndpoint =
-      "https://us-central1-blinkapp-684c1.cloudfunctions.net/fakeAuth";
-    const authBody = {
-      name: values.fullName,
-      email: values.email,
-    };
-
-    try {
-      const response = await fetch(authEndpoint, {
-        method: "POST",
-        body: JSON.stringify(authBody),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        onSubmit();
-      } else {
-        const data = await response.json();
-        setSubmitError(data.errorMessage);
-      }
-    } catch (error) {
-      setSubmitError(error);
-    }
+  const submitForm = (values: FormValues) => {
+    onSubmit(values);
   };
 
   return (
     <Box>
-      <form onSubmit={handleSubmit(postFormData)}>
+      <form onSubmit={handleSubmit(submitForm)}>
         <VStack spacing={4}>
           <FormControl isInvalid={errors.fullName}>
             <FormLabel htmlFor="full-name">Full name</FormLabel>
@@ -125,12 +96,6 @@ export const InviteForm = ({ onSubmit }: Props) => {
           >
             Submit
           </Button>
-          {submitError && (
-            <Alert status="error" borderRadius="0.4rem">
-              <AlertIcon />
-              {submitError}
-            </Alert>
-          )}
         </VStack>
       </form>
     </Box>

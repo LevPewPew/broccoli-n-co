@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ChakraProvider,
   Flex as FlexBox,
   Center,
   Container,
   Text,
+  Alert,
+  AlertIcon,
   useDisclosure,
   theme,
 } from "@chakra-ui/react";
@@ -15,8 +17,10 @@ import {
   Header,
   InviteForm,
 } from "components";
+import { FormValues } from "components/InviteForm";
 
 export const App = () => {
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const {
     isOpen: isInviteFormOpen,
     onOpen: openInviteForm,
@@ -28,12 +32,39 @@ export const App = () => {
     onClose: closeInviteSuccess,
   } = useDisclosure();
 
-  const handleInviteFormSubmit = () => {
-    closeInviteForm();
-    openInviteSuccess();
+  // NEXT maybe extract this into api utility or something
+  const postFormData = async (values: FormValues) => {
+    // NEXT test if values are correct to the interface
+    setSubmitError(null);
+
+    const authEndpoint =
+      "https://us-central1-blinkapp-684c1.cloudfunctions.net/fakeAuth";
+    const authBody = {
+      name: values.fullName,
+      email: values.email,
+    };
+
+    try {
+      const response = await fetch(authEndpoint, {
+        method: "POST",
+        body: JSON.stringify(authBody),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        closeInviteForm();
+        openInviteSuccess();
+      } else {
+        const data = await response.json();
+        setSubmitError(data.errorMessage);
+      }
+    } catch (error) {
+      setSubmitError(error);
+    }
   };
 
-  // NEXT ensure everything is responsive
   return (
     <ChakraProvider theme={theme}>
       <FlexBox color="white" height="100vh" flexDirection="column">
@@ -50,7 +81,13 @@ export const App = () => {
         isOpen={isInviteFormOpen}
         onClose={closeInviteForm}
       >
-        <InviteForm onSubmit={handleInviteFormSubmit} />
+        <InviteForm onSubmit={postFormData} />
+        {submitError && (
+          <Alert status="error" borderRadius="0.4rem">
+            <AlertIcon />
+            {submitError}
+          </Alert>
+        )}
       </CompleteModal>
       <CompleteModal
         title="All done!"
