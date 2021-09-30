@@ -37,16 +37,7 @@ export const RequestInviteForm = ({ onSubmit }: Props) => {
   const emailValue = useRef({});
   emailValue.current = watch("email", "");
 
-  // NEXT fix any, probably an interface of the form data expected
   const postFormData = async (values: FormData) => {
-    // return new Promise((resolve) => {
-    //   setTimeout(() => {
-    //     alert(JSON.stringify(values, null, 2));
-    //     // @ts-ignore
-    //     resolve();
-    //   }, 2000);
-    // });
-
     const authEndpoint =
       "https://us-central1-blinkapp-684c1.cloudfunctions.net/fakeAuth";
 
@@ -59,13 +50,15 @@ export const RequestInviteForm = ({ onSubmit }: Props) => {
       const response = await fetch(authEndpoint, {
         method: "POST",
         body: JSON.stringify(authBody),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-      const data = await response.json();
-      alert(JSON.stringify(data, null, 2));
+      const data = response.ok;
+      console.log({ data });
     } catch (dasErr) {
       console.log({ dasErr });
     }
-    // https://us-central1-blinkapp-684c1.cloudfunctions.net/fakeAuth
   };
 
   return (
