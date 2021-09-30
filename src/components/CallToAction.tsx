@@ -12,7 +12,9 @@ export const CallToAction = ({ onButtonClick }: Props) => (
       <br />
       to enjoy every day.
     </Heading>
-    <Text fontSize="xl">Be the first to know when we launch.</Text>
+    <Text fontSize="xl" textAlign="center">
+      Be the first to know when we launch.
+    </Text>
     <Button onClick={onButtonClick} size="lg" colorScheme="green">
       Request an invite
     </Button>

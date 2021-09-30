@@ -6,10 +6,12 @@ export const Footer = () => (
     flexDirection="column"
     bg="green.700"
     alignItems="center"
-    px={32}
-    py={4}
+    px={[8, 16, 32]}
+    py={[2, 4, 8]}
   >
-    <Text>Made with ❤️ in Melbourne</Text>
-    <Text>&#169; 2016 Broccoli n Co. All rights reserved.</Text>
+    <Text textAlign="center">Made with ❤️ in Melbourne</Text>
+    <Text textAlign="center">
+      &#169; 2016 Broccoli n Co. All rights reserved.
+    </Text>
   </FlexBox>
 );

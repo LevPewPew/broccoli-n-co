@@ -18,7 +18,6 @@ interface Props {
   confirm?: boolean;
 }
 
-// NEXT make color scheme consistent with the page
 export const CompleteModal = ({
   children,
   isOpen,
