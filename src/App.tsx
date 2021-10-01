@@ -42,7 +42,7 @@ export const App = () => {
     <ChakraProvider theme={theme}>
       <FlexBox color="white" height="100vh" flexDirection="column">
         <Header />
-        <Center bg="green.500" flex="1">
+        <Center bg="green.600" flex="1">
           <Container maxW="xl" centerContent>
             <CallToAction onButtonClick={openInviteForm} />
           </Container>

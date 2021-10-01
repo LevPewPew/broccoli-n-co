@@ -28,7 +28,7 @@ export const CompleteModal = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent pb={4} bg="green.500">
+      <ModalContent pb={4} bg="green.600">
         <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{children}</ModalBody>
