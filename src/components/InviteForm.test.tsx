@@ -2,13 +2,11 @@ import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { InviteForm } from "components";
-import fetchMock from "jest-fetch-mock";
 
 describe("InviteForm component", () => {
   const onSubmitMock = jest.fn();
 
   beforeEach(() => {
-    fetchMock.resetMocks();
     jest.resetAllMocks();
   });
 
