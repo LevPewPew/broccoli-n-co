@@ -38,6 +38,11 @@ export const App = () => {
     openInviteSuccess();
   };
 
+  const handleModalClose = () => {
+    closeInviteForm();
+    setSubmitError(null);
+  };
+
   return (
     <ChakraProvider theme={theme}>
       <FlexBox color="white" height="100vh" flexDirection="column">
@@ -52,7 +57,7 @@ export const App = () => {
       <CompleteModal
         title="Request an Invite"
         isOpen={isInviteFormOpen}
-        onClose={closeInviteForm}
+        onClose={handleModalClose}
       >
         <InviteForm
           onSubmit={(values: FormValues) =>
