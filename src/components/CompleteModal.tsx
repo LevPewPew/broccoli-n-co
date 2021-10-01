@@ -34,7 +34,7 @@ export const CompleteModal = ({
         <ModalBody>{children}</ModalBody>
         {confirm && (
           <ModalFooter>
-            <Button colorScheme="green" mr={3} onClick={onClose} width="100%">
+            <Button colorScheme="green" onClick={onClose} width="100%">
               OK
             </Button>
           </ModalFooter>
