@@ -32,4 +32,4 @@ yarn test
 
 Follow any watch usage instructions.
 
-If you see "No tests found related to files changed since last commit", or tests have finished running, you can tap `a` to run all tests.
+If you see "No tests found related to files changed since last commit" message, or tests have finished running, you can tap `a` to run all tests.
