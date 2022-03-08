@@ -10,6 +10,10 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
+/* TODO: extract this into the theme, and have error text and border color
+style also be part of the theme (i.e. not given as a prop for every instance */
+const ERROR_COLOR = "pink.300";
+
 interface Props {
   onSubmit: (values: FormValues) => void;
 }
@@ -36,7 +40,7 @@ export const InviteForm = ({ onSubmit }: Props) => {
   };
 
   return (
-    <Box>
+    <Box color="white">
       <form onSubmit={handleSubmit(submitForm)}>
         <VStack spacing={4}>
           <FormControl isInvalid={errors.fullName}>
@@ -47,8 +51,9 @@ export const InviteForm = ({ onSubmit }: Props) => {
                 required: "Required",
                 minLength: { value: 3, message: "Minimum of 3 characters" },
               })}
+              errorBorderColor={ERROR_COLOR}
             />
-            <FormErrorMessage>
+            <FormErrorMessage color={ERROR_COLOR} fontWeight="bold">
               {errors.fullName && errors.fullName.message}
             </FormErrorMessage>
           </FormControl>
@@ -63,8 +68,9 @@ export const InviteForm = ({ onSubmit }: Props) => {
                   message: "Invalid email format",
                 },
               })}
+              errorBorderColor={ERROR_COLOR}
             />
-            <FormErrorMessage>
+            <FormErrorMessage color={ERROR_COLOR} fontWeight="bold">
               {errors.email && errors.email.message}
             </FormErrorMessage>
           </FormControl>
@@ -81,8 +87,9 @@ export const InviteForm = ({ onSubmit }: Props) => {
                 validate: (value) =>
                   value === emailValue.current || "Emails do not match",
               })}
+              errorBorderColor={ERROR_COLOR}
             />
-            <FormErrorMessage>
+            <FormErrorMessage color={ERROR_COLOR} fontWeight="bold">
               {errors.confirmEmail && errors.confirmEmail.message}
             </FormErrorMessage>
           </FormControl>

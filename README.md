@@ -1,5 +1,7 @@
 # Broccoli & Co. - By Lev
 
+A React web app to as a Coding Challenge submission. See coding-challenge.pdf for requirements.
+
 ## Initial setup
 
 Clone the repo, and install packages.
