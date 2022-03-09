@@ -1,3 +1,4 @@
+# NEXT change this to a specific version of node, feel like just chucking in "current" defeats the purpose...
 FROM node:current-alpine
 
 LABEL author: "Lev" \
